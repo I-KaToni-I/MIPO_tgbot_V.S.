@@ -3,6 +3,12 @@ const fs = require('fs');
 
 const {getInfoUser} = require("./user");
 
+Date.prototype.addHours = function(h) {
+    this.setTime(this.getTime() + (h*60*60*1000));
+    return this;
+}
+
+
 function beautifulTime(text) {
     let txt = text.split(':')
 
@@ -16,7 +22,7 @@ function getDay(chat_id, txt) {
     let file = fs.readFileSync("../CalendarJSON/CalendarJSON.json", { encoding: 'utf8' })
     let JN = JSON.parse(file)
     
-    let date = new Date()
+    let date = new Date().addHours(3)
     if (txt === 'сегодня') {
         date = new Date(date.getFullYear(), date.getMonth(), date.getDate())
     } else if (txt === 'завтра') {
